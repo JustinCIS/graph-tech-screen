@@ -5,22 +5,23 @@ type Args = { id: string };
 
 const Query: Record<string, GraphQLFieldResolver<{}, Context, any>> = {
   swapiCharacterById: async (_, args: Args, ctx) => {
-    return {};
+    const response = await fetch(`https://swapi.dev/api/people/${args.id}`);
+    return response.json();
   },
 };
 
 const StarWarsCharacter = {
-  name: () => {
-    return "test";
+  name: (character: any) => {
+    return character.name;
   },
-  height: () => {
-    return "171";
+  height: (character: any) => {
+    return character.height;
   },
-  mass: () => {
-    return "100";
+  mass: (character: any) => {
+    return character.mass;
   },
-  gender: () => {
-    return "MALE";
+  gender: (character: any) => {
+    return (character.gender.toUpperCase() === 'MALE' || character.gender.toUpperCase() === 'FEMALE') ? character.gender.toUpperCase() :  'NONE';
   },
 };
 

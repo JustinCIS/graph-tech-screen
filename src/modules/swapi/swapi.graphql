@@ -12,5 +12,6 @@ type StarWarsCharacter {
 enum Gender {
   MALE
   FEMALE
+  NONE
 }
 
